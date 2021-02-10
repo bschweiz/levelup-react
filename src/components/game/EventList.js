@@ -7,7 +7,7 @@ export const EventList = (props) => {
     useEffect(() => {
         getEvents()
     }, [])
-debugger
+
     return (
         <article className="events">
             <header className="events__header">
