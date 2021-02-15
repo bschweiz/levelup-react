@@ -2,12 +2,13 @@ import React, { useContext, useState, useEffect } from "react"
 import { GameContext } from "./GameProvider.js"
 import { useHistory } from "react-router-dom"
 
+
 export const GameForm = () => {
     const history = useHistory()
     const { createGame, getGameTypes, gameTypes } = useContext(GameContext)
     // provide default values so it doesn't break
     const [currentGame, setCurrentGame] = useState({
-        skillLevel: 1,
+        description: "",
         numberOfPlayers: 0,
         title: "",
         gameTypeId: 0
@@ -36,21 +37,63 @@ export const GameForm = () => {
                 </div>
             </fieldset>
 
-            {/* add in other necessary input fields for the data object  */}
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="maker">Maker: </label>
+                    <input type="text" name="maker" required autoFocus className="form-control"
+                        value={currentGame.maker}
+                        onChange={changeGameState}
+                    />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="numberOfPlayers">Minimum Number of Players: </label>
+                    <input type="text" name="numberOfPlayers" required autoFocus className="form-control"
+                        value={currentGame.numberOfPlayers}
+                        onChange={changeGameState}
+                    />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="description">Brief Description: </label>
+                    <input type="text" name="description" required autoFocus className="form-control"
+                        value={currentGame.description}
+                        onChange={changeGameState}
+                    />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <label>Game Type</label>
+                <select name="gameTypeId"
+                    onChange={changeGameState}>
+                    <option value="0">Select Game Type</option>
+                    {gameTypes.map(gt => (
+                        <option key={gt.id} value={gt.id}>
+                            {gt.label}
+                        </option>
+                    ))}
+                </select>
+            </fieldset>
+
+
 
             <button type="submit"
                 onClick={evt => {
                     // Prevent form from being submitted
                     evt.preventDefault()
-
+                    
                     const game = {
                         maker: currentGame.maker,
                         title: currentGame.title,
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-                        skillLevel: parseInt(currentGame.skillLevel),
+                        description: currentGame.description,
                         gameTypeId: parseInt(currentGame.gameTypeId)
                     }
-
                     // Send POST request to your API
                     createGame(game)
                         .then(() => history.push("/games"))
