@@ -50,7 +50,7 @@ export const GameForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="numberOfPlayers">Minimum Number of Players: </label>
-                    <input type="text" name="numberOfPlayers" required autoFocus className="form-control"
+                    <input type="number" name="numberOfPlayers" required autoFocus className="form-control"
                         value={currentGame.numberOfPlayers}
                         onChange={changeGameState}
                     />
@@ -86,7 +86,7 @@ export const GameForm = () => {
                 onClick={evt => {
                     // Prevent form from being submitted
                     evt.preventDefault()
-                    
+
                     const game = {
                         maker: currentGame.maker,
                         title: currentGame.title,
