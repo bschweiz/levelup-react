@@ -19,16 +19,16 @@ export const EventList = (props) => {
                         <div className="registration__game">{event.game.title}</div>
                         <div>Location: {event.location}</div>
                         <div>
-                            {
+                                Starts at:  {
                                 new Date(event.event_time).toLocaleDateString("en-US",
                                 {
                                     weekday: 'long',
                                     year: 'numeric',
                                     month: 'long',
-                                    day: 'numeric'
+                                    day: 'numeric',
+                                    hour: 'numeric'
                                 })
                             }
-                                Starts at {event.event_time}
                         </div>
                     </section>
                 })
