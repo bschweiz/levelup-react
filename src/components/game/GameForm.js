@@ -80,8 +80,6 @@ export const GameForm = () => {
                 </select>
             </fieldset>
 
-
-
             <button type="submit"
                 onClick={evt => {
                     // Prevent form from being submitted

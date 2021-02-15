@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import { GameContext } from "./GameProvider.js"
+import { GameContext } from "../game/GameProvider.js"
 import { EventContext } from "./EventProvider.js"
 
 export const EventForm = () => {
@@ -11,7 +11,7 @@ export const EventForm = () => {
     const [currentEvent, setCurrentEvent] = useState({
         location: "",
         // event_time
-        eventTime: "", 
+        eventTime: "",
         // scheduler_id
         schedulerId: 0,
         // game_id
@@ -21,7 +21,7 @@ export const EventForm = () => {
     useEffect(() => {
         getGames()
     }, [])
-    
+
     const changeEventState = (DOMEvent) => {
         const newEventState = Object.assign({}, currentEvent)
         newEventState[DOMEvent.target.name] = DOMEvent.target.value
@@ -35,12 +35,12 @@ export const EventForm = () => {
                 <div className="form-group">
                     <label htmlFor="gameId">Game: </label>
                     <select name="gameId" className="form-control"
-                        value={ currentEvent.gameId }
-                        onChange={ changeEventState }>
+                        value={currentEvent.gameId}
+                        onChange={changeEventState}>
                         <option value="0">Select a game...</option>
                         {
-                            games.map(game => (
-                                <option></option>
+                            games.map(g => (
+                                <option key={g.id} value={g.id}>{g.title}</option>
                             ))
                         }
                     </select>
@@ -71,13 +71,16 @@ export const EventForm = () => {
                 onClick={evt => {
                     evt.preventDefault()
 
-                    // Create the event
+                    const userEvent = {
+                        gameId: parseInt(currentEvent.gameId),
+                        location: currentEvent.location,
+                        eventTime: currentEvent.eventTime
+                    }
 
-
-                    // Once event is created, redirect user to event list
+                    createEvent(userEvent)
+                        .then(() => history.push("/events"))
                 }}
                 className="btn btn-primary">Create Event</button>
         </form>
     )
-}
 }
