@@ -6,7 +6,7 @@ import "./Event.css"
 
 export const EventList = () => {
     const history = useHistory()
-    const { events, getEvents, joinEvent } = useContext(EventContext)
+    const { events, getEvents, joinEvent, leaveEvent } = useContext(EventContext)
 
     useEffect(() => {
         getEvents()
@@ -24,8 +24,8 @@ export const EventList = () => {
             </header>
             {
                 events.map(event => {
-                    
-                    {/* const attending = profile.events.some(evt => evt.id === event.id) */}
+
+                    {/* const attending = profile.events.some(evt => evt.id === event.id) */ }
 
                     return <section key={event.id} className="registration">
                         <div className="registration__game">{event.game.title}</div>
@@ -42,10 +42,17 @@ export const EventList = () => {
                                     })
                             }
                         </div>
-                        <button className="btn btn-2"
-                                onClick={()=> joinEvent(event.id)}>
-                                    Join this event
+                        {event.joined ?
+                            <button className="btn btn-3"
+                                onClick={() => leaveEvent(event.id)}>
+                                Leave this event
                                 </button>
+                                :
+                                <button className="btn btn-2"
+                            onClick={() => joinEvent(event.id)}>
+                            Join this event
+                                </button>
+                        }
                     </section>
                 })
             }
