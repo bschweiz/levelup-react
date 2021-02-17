@@ -10,6 +10,7 @@ export const GameForm = (props) => {
     const [currentGame, setCurrentGame] = useState({
         description: "",
         numberOfPlayers: 0,
+        maker: "",
         title: "",
         gameTypeId: 0
     })
@@ -19,17 +20,20 @@ export const GameForm = (props) => {
     }, [])
     // useEffect to determine if this is in edit mode?
     useEffect(() => {
+        debugger
         if ("gameId" in props.match.params) {
             getGame(props.match.params.gameId).then(game => {
                 setCurrentGame({
                     description: game.description,
-                    numberOfPlayers: game.numberOfPlayers,
+                    numberOfPlayers: game.number_of_players,
+                    maker: game.maker,
                     title: game.title,
-                    gameTypeId: game.gameTypeId
+                    gameTypeId: game.game_type_id
                 })
             })
         }
     }, [props.match.params.gameId])
+
     // update 'currentGame' state var cada vez que state of input field change
     const changeGameState = (DOMEvent) => {
         const newGameState = Object.assign({}, currentGame)
