@@ -8,6 +8,7 @@ export const Profile = () => {
         getProfile()
     }, [])
 
+    // debugger
     return (
         <article className='profile'>
             <header>
@@ -18,7 +19,7 @@ export const Profile = () => {
                     <h3>Your Info Motherfucker</h3>
                 </header>
                 <div className='profile__name'>
-                    Welcome: {profile.gamer && profile.gamrer.user.first_name} {profile.gamer && profile.gamrer.user.last_name}
+                    Welcome: {profile.gamer && profile.gamer.user.first_name} {profile.gamer && profile.gamer.user.last_name}
                 </div>
                 <div className='profile__bio'>About your ass: {profile.gamer && profile.gamer.bio}</div>
             </section>
@@ -32,7 +33,7 @@ export const Profile = () => {
                             return <div key={e.id} className='registration'>
                                 <div className='registration__game'>{e.game.title}</div>
                                 <div className='registration__location'>Meet at {e.location}</div>
-                                <div className='registration__event_time'>Playing at {e.location}</div>
+                                <div className='registration__event_time'>Playing at {e.event_time}</div>
                             </div>
                         })
                     }

@@ -22,10 +22,16 @@ export const GameList = () => {
                 {
                     games.map(game => {
                         return <section key={`game--${game.id}`} className="game">
+                            <div className="game__edit">
+                                <button className="btn btn-3"
+                                    onClick={e => history.push(`/games/${game.id}/edit`)}
+                                    >Edit</button>
+                            </div>
                             <div className="game__title">{game.title} by {game.gamer.bio}</div>
                             <div className="game__players">{game.number_of_players} players needed</div>
                             <div className="game__description">Description: {game.description}</div>
-                            <div className="game__description">Game Type: {game.game_type.label}</div>
+                            <div className="game__gametype">Game Type: {game.game_type.label}</div>
+                            {/* add in up coming events associated with this game down below here */}
                         </section>
                     })
                 }

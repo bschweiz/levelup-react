@@ -3,9 +3,9 @@ import { GameContext } from "./GameProvider.js"
 import { useHistory } from "react-router-dom"
 
 
-export const GameForm = () => {
+export const GameForm = (props) => {
     const history = useHistory()
-    const { createGame, getGameTypes, gameTypes } = useContext(GameContext)
+    const { createGame, getGameTypes, gameTypes, getGame } = useContext(GameContext)
     // provide default values so it doesn't break
     const [currentGame, setCurrentGame] = useState({
         description: "",
@@ -17,6 +17,19 @@ export const GameForm = () => {
     useEffect(() => {
         getGameTypes()
     }, [])
+    // useEffect to determine if this is in edit mode?
+    useEffect(() => {
+        if ("gameId" in props.match.params) {
+            getGame(props.match.params.gameId).then(game => {
+                setCurrentGame({
+                    description: game.description,
+                    numberOfPlayers: game.numberOfPlayers,
+                    title: game.title,
+                    gameTypeId: game.gameTypeId
+                })
+            })
+        }
+    }, [props.match.params.gameId])
     // update 'currentGame' state var cada vez que state of input field change
     const changeGameState = (DOMEvent) => {
         const newGameState = Object.assign({}, currentGame)
